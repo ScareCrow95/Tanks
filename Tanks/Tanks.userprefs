@@ -1,16 +1,14 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Tank\Missile.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Network\Utility\DestroyTimer.cs">
     <Files>
-      <File FileName="Assets\Scripts\Network\TankNetworkMover.cs" Line="159" Column="39" />
-      <File FileName="Assets\Scripts\Tank\CameraControl.cs" Line="16" Column="51" />
-      <File FileName="Assets\Scripts\Tank\TankCharacterController.cs" Line="23" Column="125" />
-      <File FileName="Assets\Standard Assets\CrossPlatformInput\Scripts\Joystick.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Network\NetworkSetup.cs" Line="43" Column="44" />
-      <File FileName="Assets\Scripts\Tank\Missile.cs" Line="36" Column="25" />
+      <File FileName="Assets\Scripts\Network\TankNetworkMover.cs" Line="54" Column="3" />
+      <File FileName="Assets\Scripts\Tank\Missile.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Tank\MissileSpawnPoint.cs" Line="9" Column="36" />
-      <File FileName="Assets\Scripts\Network\MissileNetworkMover.cs" Line="17" Column="2" />
-      <File FileName="Assets\Scripts\Network\Utility\DestroyTimer.cs" Line="9" Column="31" />
+      <File FileName="Assets\Scripts\Network\MissileNetworkMover.cs" Line="48" Column="3" />
+      <File FileName="Assets\Scripts\Network\Utility\DestroyTimer.cs" Line="14" Column="24" />
+      <File FileName="Assets\Scripts\Tank\TankMaterial.cs" Line="10" Column="115" />
+      <File FileName="Assets\Photon Unity Networking\Plugins\PhotonNetwork\NetworkingPeer.cs" Line="2846" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

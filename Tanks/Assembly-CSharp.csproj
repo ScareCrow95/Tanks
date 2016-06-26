@@ -124,6 +124,8 @@
      <Compile Include="Assets\Scripts\Tank\Missile.cs" />
      <Compile Include="Assets\Scripts\Tank\MissileSpawnPoint.cs" />
      <Compile Include="Assets\Scripts\Tank\TankCharacterController.cs" />
+     <Compile Include="Assets\Scripts\Tank\TankMaterial.cs" />
+     <Compile Include="Assets\Scripts\Title\LoadingScreen.cs" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />

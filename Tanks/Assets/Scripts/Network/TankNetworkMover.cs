@@ -28,10 +28,11 @@ public class TankNetworkMover : Photon.MonoBehaviour {
 	public Image healthGameObject;
 	public float shootDelay = 1.5f;
 	bool canShoot = true;
-	//public GameObject healthGameObjectOther;
+	GameObject shootButton;
 
 
-	// Use this for initialization
+
+
 	void Start () {
 		Invoke ("FindHealthBar", .4f);
 
@@ -42,6 +43,8 @@ public class TankNetworkMover : Photon.MonoBehaviour {
 		
 			Power = GameObject.FindGameObjectWithTag("power");
 			cam = GameObject.FindGameObjectWithTag("camera");
+			shootButton = GameObject.FindGameObjectWithTag("shoot");
+
 			cam.GetComponent<CameraControl> ().myTank = this.gameObject;
 			cam.transform.position = transform.position;
 
@@ -97,7 +100,7 @@ public class TankNetworkMover : Photon.MonoBehaviour {
 	{
 		
 
-		if(CrossPlatformInputManager.GetButtonUp("Shoot") && canShoot)
+		if(CrossPlatformInputManager.GetButtonUp("Shoot") && canShoot && photonView.isMine)
 			{
 			
 			GameObject	missile = PhotonNetwork.Instantiate("Missile",missilePoint.transform.position,missilePoint.transform.rotation,0);
@@ -112,7 +115,7 @@ public class TankNetworkMover : Photon.MonoBehaviour {
 			powerUp.fillAmount = 0;
 
 			}
-		if (CrossPlatformInputManager.GetButton ("Shoot") && canShoot) {
+		if (CrossPlatformInputManager.GetButton ("Shoot") && canShoot && photonView.isMine) {
 			if(currentForce<maxForce)
 				currentForce ++;
 			if(currentUpThrust < maxUpThrust)
@@ -124,6 +127,9 @@ public class TankNetworkMover : Photon.MonoBehaviour {
 
 	IEnumerator ShootDelay(float timer)
 	{
+		shootButton.GetComponent<Image> ().CrossFadeAlpha (.1f, 0, true);
+		shootButton.GetComponent<Image> ().CrossFadeAlpha (1, timer, true);
+
 		yield return new WaitForSeconds (timer);
 		canShoot = true;
 	}
@@ -169,7 +175,20 @@ public class TankNetworkMover : Photon.MonoBehaviour {
 			PhotonNetwork.Destroy (gameObject);
 		}
 		healthGameObject.fillAmount = Health / 100;
-//		if (Health < 25)
-//			healthGameObject.color = Color.red;
+
+	
 	}
+
+	//to do
+
+//	[PunRPC]
+//	public void AddDamageForce( Vector3 location)
+//	{
+//		if (!photonView.isMine) {
+//			print ("2");
+//			Rigidbody rb = GetComponent<Rigidbody> ();
+//			rb.AddExplosionForce (30, location, 20, 3);
+//		}
+//	}
+//
 }

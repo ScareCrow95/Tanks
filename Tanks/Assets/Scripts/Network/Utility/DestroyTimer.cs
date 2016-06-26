@@ -11,6 +11,7 @@ public class DestroyTimer : Photon.MonoBehaviour {
 	
 	// Update is called once per frame
 	void destroyMe () {
+		if(photonView.isMine)
 		PhotonNetwork.Destroy (gameObject);
 	
 	}

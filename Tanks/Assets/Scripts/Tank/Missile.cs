@@ -4,6 +4,8 @@ using System.Collections;
 public class Missile : Photon.MonoBehaviour {
 	public float damageRadius = 8;
 	public float damage = 60f;
+	public float damageForce = 10f;
+
 
 	// Use this for initialization
 	void Start () {
@@ -18,7 +20,7 @@ public class Missile : Photon.MonoBehaviour {
 	void OnCollisionEnter(Collision col)
 	{
 		if (photonView.isMine) {
-			AreaDamageEnemies (transform.position, damageRadius, damage);
+			AreaDamageEnemies (transform.position, damageRadius, damage, damageForce);
 			PhotonNetwork.Instantiate ("ShellExplosion", transform.position, transform.rotation, 0);
 
 			PhotonNetwork.Destroy (this.gameObject);
@@ -27,11 +29,12 @@ public class Missile : Photon.MonoBehaviour {
 
 	}
 
-	void AreaDamageEnemies(Vector3 location, float radius, float damage)
+	void AreaDamageEnemies(Vector3 location, float radius, float damage , float force)
 	{
 		Collider[] objectsInRange = Physics.OverlapSphere(location, radius);
 		foreach (Collider col in objectsInRange)
 		{
+
 			TankNetworkMover enemy = col.GetComponent<TankNetworkMover>();
 			if (enemy != null && col.gameObject.tag != "me")
 			{
@@ -42,6 +45,8 @@ public class Missile : Photon.MonoBehaviour {
 
 
 				enemy.GetComponent<PhotonView> ().RPC ("ApplyDamage", PhotonTargets.All, damage * effect);
+//				enemy.gameObject.GetComponent<PhotonView> ().RPC ("AddDamageForce", PhotonTargets.All,location);
+
 			}
 		}
 
