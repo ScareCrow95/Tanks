@@ -5,12 +5,13 @@ using UnityEngine.UI;
 public class LoadingScreen : MonoBehaviour {
 
 	int loadProgress = 0;
-	public Slider slider;
+	//public Slider slider;
 	public string sceneName;
 	// Use this for initialization
 	void Start () {
+
 		StartCoroutine (DisplayLoadingScreen (sceneName));
-		slider = GetComponent<Slider> ();
+
 	}
 	
 	// Update is called once per frame
@@ -20,10 +21,12 @@ public class LoadingScreen : MonoBehaviour {
 
 	IEnumerator DisplayLoadingScreen(string level)
 	{
-		slider.value = loadProgress;
+		
+		print (loadProgress);
 		AsyncOperation async = Application.LoadLevelAsync (level);
 		while (!async.isDone) {
 			loadProgress = (int)(async.progress);
+			//slider.value = loadProgress;
 			yield return null;
 		}
 	}

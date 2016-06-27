@@ -7,25 +7,101 @@ public class NetworkSetup : MonoBehaviour {
 	public Text connectionText;
 	public Transform[] spawnPoints;
 	public Camera Cam;
+	bool isInLobby = false;
 	GameObject player;
+	public GameObject Dpad;
+
+	public InputField username;
+
+	public InputField roomName;
+	public Slider playerCountSlider;
+	public Toggle visible;
+
+	public Toggle gun;
+	public Toggle flame;
+	public Toggle missile;
+	public GameObject bg;
+
+	public GameObject list;
+
+	string tankType;
+
+
 	// Use this for initialization
 	void Start () {
 		PhotonNetwork.logLevel = PhotonLogLevel.Full;
 		PhotonNetwork.ConnectUsingSettings ("1.0");
+		StartCoroutine (UpdateConnectionString());
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		connectionText.text = PhotonNetwork.connectionStateDetailed.ToString ();
+		if (connectionText.text == "Joined") {
+			//print ("2");
+			bg.GetComponent<Fadeout> ().close ();
+			Dpad.SetActive (true);
+		}
 	}
 
+	IEnumerator UpdateConnectionString () 
+	{
+		while(true)
+		{
+			connectionText.text = PhotonNetwork.connectionStateDetailed.ToString ();
+			yield return null;
+		}
+	
+			
+	}
+
+	void OnReceivedRoomListUpdate()
+	{
+		list.GetComponent<GetRoomList> ().RoomList ();
+	}
+
+	public void createRoom()
+	{
+		RoomOptions ro = new RoomOptions (){ isVisible = visible.isOn, maxPlayers = (byte)playerCountSlider.value };
+		PhotonNetwork.JoinOrCreateRoom (roomName.text, ro, TypedLobby.Default);
+		if(gun.isOn)
+			tankType="Minigun";
+		if(flame.isOn)
+			tankType="FlameTank";
+		if(missile.isOn)
+			tankType="Tank";
+	}
+
+
+
+	public void joinRoom(string joinRoomName)
+	{
+		PhotonNetwork.JoinRoom (joinRoomName);
+		print ("go");
+		if(gun.isOn)
+			tankType="Minigun";
+		if(flame.isOn)
+			tankType="FlameTank";
+		if(missile.isOn)
+			tankType="Tank";
+	}
+
+
+	void createName()
+	{
+		if(username.text != "")
+			PhotonNetwork.player.name = username.text; 
+		else
+			PhotonNetwork.player.name = "Default Player";
+	}
 
 	void OnJoinedLobby()
 	{
-		RoomOptions ro = new RoomOptions (){isVisible = true, maxPlayers = 10};PhotonNetwork.JoinOrCreateRoom ("Mike", ro, TypedLobby.Default);
+		isInLobby = true;
+
 	}
 	void OnJoinedRoom()
 	{
+		StopCoroutine (UpdateConnectionString ());	
 		StartSpawnProcess (0f);
 	}
 
@@ -40,7 +116,7 @@ public class NetworkSetup : MonoBehaviour {
 		yield return new WaitForSeconds(respawnTime);
 
 		int index = Random.Range (0, spawnPoints.Length);
-		player = PhotonNetwork.Instantiate ("Tank", 
+		player = PhotonNetwork.Instantiate (tankType, 
 			spawnPoints [index].position,
 			spawnPoints [index].rotation,
 			0);
