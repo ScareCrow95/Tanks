@@ -116,6 +116,7 @@
      <Compile Include="Assets\PhotonChatApi\ChatState.cs" />
      <Compile Include="Assets\PhotonChatApi\ChatUserStatus.cs" />
      <Compile Include="Assets\PhotonChatApi\IChatClientListener.cs" />
+     <Compile Include="Assets\Scripts\Flame\FlameNetworkMover.cs" />
      <Compile Include="Assets\Scripts\MainMenu\Fadeout.cs" />
      <Compile Include="Assets\Scripts\MainMenu\Room Settings\Fade.cs" />
      <Compile Include="Assets\Scripts\MainMenu\Room Settings\GetRoomList.cs" />
@@ -123,8 +124,8 @@
      <Compile Include="Assets\Scripts\MainMenu\Room Settings\PlayerCountText.cs" />
      <Compile Include="Assets\Scripts\MainMenu\Rotate.cs" />
      <Compile Include="Assets\Scripts\Network\MissileNetworkMover.cs" />
+     <Compile Include="Assets\Scripts\Network\MissileTankNetworkMover.cs" />
      <Compile Include="Assets\Scripts\Network\NetworkSetup.cs" />
-     <Compile Include="Assets\Scripts\Network\TankNetworkMover.cs" />
      <Compile Include="Assets\Scripts\Network\Utility\DestroyTimer.cs" />
      <Compile Include="Assets\Scripts\Tank\CameraControl.cs" />
      <Compile Include="Assets\Scripts\Tank\Missile.cs" />

@@ -5,11 +5,15 @@ public class Missile : Photon.MonoBehaviour {
 	public float damageRadius = 8;
 	public float damage = 60f;
 	public float damageForce = 10f;
+    GameObject networkManager;
+
+	NetworkSetup ns;
 
 
 	// Use this for initialization
 	void Start () {
-
+		networkManager = GameObject.FindGameObjectWithTag ("NM");
+		ns = networkManager.GetComponent<NetworkSetup> ();
 	}
 	
 	// Update is called once per frame
@@ -35,19 +39,42 @@ public class Missile : Photon.MonoBehaviour {
 		foreach (Collider col in objectsInRange)
 		{
 
-			TankNetworkMover enemy = col.GetComponent<TankNetworkMover>();
-			if (enemy != null && col.gameObject.tag != "me")
+			if(ns.tankType == "MissileTank")
 			{
-				// linear falloff of effect
-				print("3");
-				float proximity = (location - enemy.transform.position).magnitude;
-				float effect = 1 - (proximity / radius);
+				
+				MissileTankNetworkMover enemy = col.GetComponent<MissileTankNetworkMover>();
+				if (enemy != null && col.gameObject.tag != "me") {
+
+			
+					float proximity = (location - enemy.transform.position).magnitude;
+					float effect = 1 - (proximity / radius);
 
 
-				enemy.GetComponent<PhotonView> ().RPC ("ApplyDamage", PhotonTargets.All, damage * effect);
-//				enemy.gameObject.GetComponent<PhotonView> ().RPC ("AddDamageForce", PhotonTargets.All,location);
+					enemy.GetComponent<PhotonView> ().RPC ("ApplyDamage", PhotonTargets.All, damage * effect);
+
 
 			}
+
+			}
+
+			if(ns.tankType == "FlameTank")
+			{
+
+				FlameNetworkMover enemy = col.GetComponent<FlameNetworkMover>();
+				if (enemy != null && col.gameObject.tag != "me") {
+					// linear falloff of effect
+					print ("3");
+					float proximity = (location - enemy.transform.position).magnitude;
+					float effect = 1 - (proximity / radius);
+
+
+					enemy.GetComponent<PhotonView> ().RPC ("ApplyDamage", PhotonTargets.All, damage * effect);
+
+
+				}
+
+			}
+
 		}
 
 	}

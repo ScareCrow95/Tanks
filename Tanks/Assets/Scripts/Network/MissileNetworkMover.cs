@@ -28,7 +28,7 @@ public class MissileNetworkMover : Photon.MonoBehaviour {
 	{
 		while(true)
 		{
-			transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime * smoothing);
+			transform.position = Vector3.Lerp(transform.position, position,smoothing);
 		
 			yield return null;
 		}

@@ -24,7 +24,7 @@ public class NetworkSetup : MonoBehaviour {
 
 	public GameObject list;
 
-	string tankType;
+	public string tankType;
 
 
 	// Use this for initialization
@@ -68,7 +68,7 @@ public class NetworkSetup : MonoBehaviour {
 		if(flame.isOn)
 			tankType="FlameTank";
 		if(missile.isOn)
-			tankType="Tank";
+			tankType="MissileTank";
 	}
 
 
@@ -82,7 +82,7 @@ public class NetworkSetup : MonoBehaviour {
 		if(flame.isOn)
 			tankType="FlameTank";
 		if(missile.isOn)
-			tankType="Tank";
+			tankType="MissileTank";
 	}
 
 
@@ -120,7 +120,10 @@ public class NetworkSetup : MonoBehaviour {
 			spawnPoints [index].position,
 			spawnPoints [index].rotation,
 			0);
-		player.GetComponent<TankNetworkMover> ().RespawnMe += StartSpawnProcess;
+		if(tankType == "MissileTank")
+			player.GetComponent<MissileTankNetworkMover> ().RespawnMe += StartSpawnProcess;
+		if(tankType == "FlameTank")
+			player.GetComponent<FlameNetworkMover> ().RespawnMe += StartSpawnProcess;
 
 	}
 }
